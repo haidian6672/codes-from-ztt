@@ -26,21 +26,18 @@ int main(int argc, char* argv[])
 	servaddr.sin_family=AF_INET;
 	servaddr.sin_addr.s_addr=htonl(INADDR_ANY);//inet_addr("10.104.164.175")
 	servaddr.sin_port=htons(1986);
-	if(bind(servsocket,(LPSOCKADDR)&servaddr,sizeof(servaddr))!=0)
-	{
-		cout<<"Ì×½Ó×Ö°ó¶¨Ê§°Ü";
-		return 0;
+	
+        if(bind(servsocket, (LPSOCKADDR)&servaddr,
+                sizeof(servaddr)) != 0) {
+	    return 0;
 	}
 
-
-	if(listen(servsocket,LISTENQ)!=0)
-	{
-		cout<<"¼àÌýÊ§°Ü";
-        return 0;
+	if(listen(servsocket, LISTENQ) != 0) {
+            return 0;
 	}
-	while(true)
-	{
-		consocket=accept(servsocket,(LPSOCKADDR)NULL,NULL);
+
+	while(true) {
+	    consocket=accept(servsocket,(LPSOCKADDR)NULL,NULL);
 		
 		int size=sizeof(sockname);
 

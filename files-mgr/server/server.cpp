@@ -466,11 +466,6 @@ BOOL DeleteDirectory(char *DirName)
 }
 
 
-
-
-
-
-
 DWORD  GetFileProc	(COMMAND command,SOCKET client)
 {
 	cout <<"get file proc is ok\n";
@@ -595,27 +590,5 @@ DWORD  PutFileProc	(COMMAND command,SOCKET client)
 		strcpy((char*)cmd.lparam,"文件上传失败!");
 		send(client,(char*)&cmd,sizeof(cmd),0);
 	}
-
-
-
-
-
-
-
-
-
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
